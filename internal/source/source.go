@@ -64,7 +64,7 @@ func Open(filename string, src any) (io.ReadCloser, error) {
 		case []byte:
 			return io.NopCloser(bytes.NewReader(src)), nil
 		case io.Reader:
-			return io.NopCloser(src), nil
+			return decryptSopsEncryptedData(filename, src)
 		}
 		return nil, fmt.Errorf("invalid source type %T", src)
 	}
